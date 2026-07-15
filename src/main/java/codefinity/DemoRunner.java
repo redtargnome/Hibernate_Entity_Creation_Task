@@ -71,8 +71,8 @@ public class DemoRunner implements CommandLineRunner {
         operations.addEmployee(emp10);
         operations.addEmployee(emp11);
         
-        // Save all departments with their employees (cascade will save employees)
-        departmentRepository.saveAll(List.of(engineering, marketing, hr, finance, operations));
+        // Flush to ensure employees are saved before querying
+        departmentRepository.flush();
         
         // Retrieve and print all departments
         System.out.println("\n=== Department List ===");

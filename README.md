@@ -4,16 +4,30 @@ This task will consist of 2 parts.
 
 ## Setting up the connection:
 
-Your task is to **create the necessary database in MySQL** using regular SQL queries. I will provide you with the codes for the table that we will **use and develop** in this course; you just need to insert these codes into your table.
+Your task is to **create the necessary database in MySQL** using regular SQL queries. The project expects tables named `departments` and `employees`.
 
-Then, you need to **connect your database to the project**. I've left a template for you in `hibernate.cfg.xml`; you just need to insert the **link to your database** (I recommend using the name `testDatabase`, as this database will be used to **test your solution**. When we have a finished project, we will create a new database).
+Then, you need to **connect your database to the project**. The database configuration is in `src/main/resources/application.properties` (not hibernate.cfg.xml). You need to update the following properties:
 
-You also need to fill in the `username` in MySQL (most likely, it will be `root`) as well as your `password`.
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/testDatabase
+spring.datasource.username=root
+spring.datasource.password=YOUR_PASSWORD
+```
+
+I recommend using the database name `testDatabase` for testing your solution. The application uses Hibernate's `update` mode, which will create the tables automatically on startup.
+
+You need to fill in the `username` (typically `root`) and your MySQL `password`.
 
 *Don't worry, I won't see your password :).*
 
 ## Creating the entity class:
 
-Next, you need to go to the `Department` class and **make this class an entity class**. Use all the necessary **annotations** learned in previous chapters. You can also use the **Project Lombok** library, or you can manually write getters, setters, and constructors. The choice is yours.
+The `Department` and `Employee` classes are already configured as entity classes with all necessary JPA annotations. The relationship between them is bidirectional (OneToMany from Department to Employee, ManyToOne from Employee to Department).
 
-After you complete the task, **run the integration tests I've written**, and they will verify the correctness of your task.
+You can use **Project Lombok** library to reduce boilerplate, or manually write getters, setters, and constructors as currently done.
+
+After you complete the setup, **run the integration tests** with `mvn test`, and they will verify the correctness of your configuration.
+
+## Running the application:
+
+To run the demo with sample data, execute `mvn spring-boot:run`. The DemoRunner will populate the database with departments and employees.
